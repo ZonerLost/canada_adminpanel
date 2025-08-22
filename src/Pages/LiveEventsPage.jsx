@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import LiveCalendar from "../Components/live/LiveCalendar";
 import EventDrawer from "../Components/live/EventDrawer";
 import EventDetails from "../Components/live/EventDetails";
+import { useNavigate } from "react-router-dom";
 
 const COLORS = {
   text: "#E6E8F0",
@@ -31,14 +32,25 @@ const SEED_EVENTS = [
     rtmpUrl: "rtmp://stream.example/ssl/room-1001",
     joinUrl: "https://zoom.us/j/123456789",
     location: "",
-    description: "Bring your questions on your first rental, cap rates & financing.",
+    description:
+      "Bring your questions on your first rental, cap rates & financing.",
     start: "2025-08-24T15:00:00", // local ISO (Asia/Karachi per your app)
-    end:   "2025-08-24T16:00:00",
+    end: "2025-08-24T16:00:00",
     status: "Scheduled", // Scheduled | Live | Ended
     replayUrl: "",
     attendees: [
-      { id: "u_1", name: "Alex Benjamin", email: "alex@example.com", checkedIn: false },
-      { id: "u_2", name: "Jane Smith", email: "jane@example.com", checkedIn: true },
+      {
+        id: "u_1",
+        name: "Alex Benjamin",
+        email: "alex@example.com",
+        checkedIn: false,
+      },
+      {
+        id: "u_2",
+        name: "Jane Smith",
+        email: "jane@example.com",
+        checkedIn: true,
+      },
     ],
     participants: [
       { id: "p_1", name: "Alex Benjamin" },
@@ -70,14 +82,24 @@ const SEED_EVENTS = [
     location: "Four Seasons DIFC, Dubai",
     description: "Invite-only mixer, bring your business cards.",
     start: "2025-08-28T19:00:00",
-    end:   "2025-08-28T22:00:00",
+    end: "2025-08-28T22:00:00",
     status: "Scheduled",
     replayUrl: "",
     attendees: [
-      { id: "u_9", name: "Jerry Maguire", email: "jerry@example.com", checkedIn: false },
+      {
+        id: "u_9",
+        name: "Jerry Maguire",
+        email: "jerry@example.com",
+        checkedIn: false,
+      },
     ],
     participants: [],
-    metrics: { registrants: 98, attendees: 0, avgWatchMins: 0, chatMessages: 0 },
+    metrics: {
+      registrants: 98,
+      attendees: 0,
+      avgWatchMins: 0,
+      chatMessages: 0,
+    },
   },
   {
     id: "ev_1003",
@@ -98,12 +120,17 @@ const SEED_EVENTS = [
     location: "",
     description: "High-yield strategies and capital allocation Q&A.",
     start: "2025-08-15T17:00:00",
-    end:   "2025-08-15T18:00:00",
+    end: "2025-08-15T18:00:00",
     status: "Ended",
     replayUrl: "https://cdn.example.com/replays/ev_1003.mp4",
     attendees: [],
     participants: [],
-    metrics: { registrants: 540, attendees: 410, avgWatchMins: 34, chatMessages: 820 },
+    metrics: {
+      registrants: 540,
+      attendees: 410,
+      avgWatchMins: 34,
+      chatMessages: 820,
+    },
   },
 ];
 
@@ -112,9 +139,12 @@ const LiveEventsPage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [active, setActive] = useState(null); // for details
+  const navigate = useNavigate();
 
   const onCreate = (presetDateTime) => {
-    setEditing(presetDateTime ? { start: presetDateTime, end: presetDateTime } : null);
+    setEditing(
+      presetDateTime ? { start: presetDateTime, end: presetDateTime } : null
+    );
     setDrawerOpen(true);
   };
 
@@ -135,25 +165,58 @@ const LiveEventsPage = () => {
 
   const onExport = (rows) => {
     const headers = [
-      "ID","Title","Type","Category","Mode","Host","Tiers","Capacity","Start","End","Status",
-      "RTMP","Join","Location","Registrants","Attendees","AvgWatchMins","ChatMsgs"
+      "ID",
+      "Title",
+      "Type",
+      "Category",
+      "Mode",
+      "Host",
+      "Tiers",
+      "Capacity",
+      "Start",
+      "End",
+      "Status",
+      "RTMP",
+      "Join",
+      "Location",
+      "Registrants",
+      "Attendees",
+      "AvgWatchMins",
+      "ChatMsgs",
     ];
     const source = rows?.length ? rows : events;
     const lines = source.map((r) => [
-      r.id, r.title, r.type, r.category, r.mode, r.host,
-      (r.tiers||[]).join("|"), r.capacity, r.start, r.end, r.status,
-      r.rtmpUrl, r.joinUrl, r.location,
-      r.metrics?.registrants || 0, r.metrics?.attendees || 0,
-      r.metrics?.avgWatchMins || 0, r.metrics?.chatMessages || 0
+      r.id,
+      r.title,
+      r.type,
+      r.category,
+      r.mode,
+      r.host,
+      (r.tiers || []).join("|"),
+      r.capacity,
+      r.start,
+      r.end,
+      r.status,
+      r.rtmpUrl,
+      r.joinUrl,
+      r.location,
+      r.metrics?.registrants || 0,
+      r.metrics?.attendees || 0,
+      r.metrics?.avgWatchMins || 0,
+      r.metrics?.chatMessages || 0,
     ]);
     const csv = [headers, ...lines]
-      .map((row) => row.map((v) => `"${String(v ?? "").replace(/"/g,'""')}"`).join(","))
+      .map((row) =>
+        row.map((v) => `"${String(v ?? "").replace(/"/g, '""')}"`).join(",")
+      )
       .join("\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `live_events_export_${new Date().toISOString().slice(0,10)}.csv`;
+    a.download = `live_events_export_${new Date()
+      .toISOString()
+      .slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -163,7 +226,9 @@ const LiveEventsPage = () => {
   };
 
   const saveReplay = (id, replayUrl) => {
-    setEvents((prev) => prev.map((e) => (e.id === id ? { ...e, replayUrl } : e)));
+    setEvents((prev) =>
+      prev.map((e) => (e.id === id ? { ...e, replayUrl } : e))
+    );
   };
 
   const updateAttendeeCheckin = (id, attendeeId, checkedIn) => {
@@ -173,7 +238,9 @@ const LiveEventsPage = () => {
           ? e
           : {
               ...e,
-              attendees: (e.attendees || []).map((a) => (a.id === attendeeId ? { ...a, checkedIn } : a)),
+              attendees: (e.attendees || []).map((a) =>
+                a.id === attendeeId ? { ...a, checkedIn } : a
+              ),
             }
       )
     );
@@ -182,16 +249,37 @@ const LiveEventsPage = () => {
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl md:text-2xl font-semibold" style={{ color: COLORS.text }}>
+        <h1
+          className="text-xl md:text-2xl font-semibold"
+          style={{ color: COLORS.text }}
+        >
           Live & Events
         </h1>
-        <button
-          onClick={() => onCreate()}
-          className="px-3 py-2 rounded-xl text-sm font-medium"
-          style={{ background: `linear-gradient(90deg, ${COLORS.gold}, ${COLORS.purple})`, color: "#0B0B0F" }}
-        >
-          New Session / Event
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => navigate("/live-studio")}
+            className="px-3 py-2 rounded-xl text-sm font-medium"
+            style={{
+              background: `linear-gradient(90deg, ${COLORS.gold}, ${COLORS.purple})`,
+              color: "#0B0B0F",
+            }}
+          >
+            Go Live
+          </button>
+
+          <button
+            onClick={() => onCreate()}
+            className="px-3 py-2 rounded-xl text-sm font-medium"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(230,232,240,0.1), rgba(230,232,240,0.08))",
+              border: "1px solid rgba(110,86,207,0.25)",
+              color: COLORS.text,
+            }}
+          >
+            New Session / Event
+          </button>
+        </div>
       </div>
 
       <LiveCalendar
