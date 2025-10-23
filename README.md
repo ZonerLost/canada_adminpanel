@@ -1,6 +1,6 @@
-# React + Vite
+# CuidadoLatino Canada
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is the CuidadoLatino Canada admin dashboard — a React + Vite starter with HMR and ESLint configured.
 
 Currently, two official plugins are available:
 
