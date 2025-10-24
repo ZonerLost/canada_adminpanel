@@ -9,6 +9,7 @@ const NAV = [
   { label: "Messaging", path: "/messaging" },
   { label: "Billing", path: "/billing" },
   { label: "Content", path: "/content" },
+  { label: "FAQ", path: PATHS?.FAQ || "/faq" },
   { label: "Settings", path: PATHS?.SETTINGS || "/settings" },
 ];
 

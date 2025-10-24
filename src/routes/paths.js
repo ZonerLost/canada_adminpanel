@@ -37,5 +37,6 @@ export const PATHS = {
     CAMPAIGNS: "/content/notifications/campaigns",
     LOGS: "/content/notifications/logs",
   },
+  FAQ: "/faq",
   SETTINGS: "/settings",
 };

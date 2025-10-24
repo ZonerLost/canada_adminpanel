@@ -70,6 +70,8 @@ const Logs = lazy(() =>
 );
 // Settings
 const Settings = lazy(() => import("../modules/settings/Settings.jsx"));
+// FAQ
+const FAQ = lazy(() => import("../modules/faq/pages/FAQ.jsx"));
 
 const withSuspense = (el) => <Suspense fallback={<Fallback />}>{el}</Suspense>;
 
@@ -152,6 +154,12 @@ const router = createBrowserRouter([
             ],
           },
         ],
+      },
+
+      // FAQ
+      {
+        path: "faq",
+        element: withSuspense(<FAQ />),
       },
 
       // Settings
