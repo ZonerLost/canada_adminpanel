@@ -103,16 +103,16 @@ export default function ListingsList() {
       />
 
       <div className="card overflow-hidden">
-        <div className="overflow-auto">
-          <table className="w-full text-sm min-w-[960px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-full">
             <thead className="text-left text-muted">
               <tr>
                 <th className="px-3 py-2">Title</th>
-                <th className="px-3 py-2">Employer</th>
-                <th className="px-3 py-2">Location</th>
-                <th className="px-3 py-2">Status</th>
-                <th className="px-3 py-2">Boost</th>
-                <th className="px-3 py-2">Created</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Employer</th>
+                <th className="px-3 py-2 hidden md:table-cell">Location</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Status</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Boost</th>
+                <th className="px-3 py-2 hidden md:table-cell">Created</th>
                 <th className="px-3 py-2 text-right">Actions</th>
               </tr>
             </thead>
@@ -139,21 +139,27 @@ export default function ListingsList() {
                     <td className="px-3 py-2">
                       <div className="font-medium">{r.title}</div>
                     </td>
-                    <td className="px-3 py-2">{r.employer_name}</td>
-                    <td className="px-3 py-2">{r.location}</td>
-                    <td className="px-3 py-2 capitalize">{r.status}</td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 hidden sm:table-cell">
+                      {r.employer_name}
+                    </td>
+                    <td className="px-3 py-2 hidden md:table-cell">
+                      {r.location}
+                    </td>
+                    <td className="px-3 py-2 hidden sm:table-cell capitalize">
+                      {r.status}
+                    </td>
+                    <td className="px-3 py-2 hidden sm:table-cell">
                       {r.boosted_until
                         ? `until ${new Date(
                             r.boosted_until
                           ).toLocaleDateString()}`
                         : "—"}
                     </td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 hidden md:table-cell">
                       {new Date(r.created_at).toLocaleDateString()}
                     </td>
                     <td className="px-3 py-2">
-                      <div className="flex items-center gap-1 justify-end">
+                      <div className="flex items-center gap-1 justify-end flex-wrap">
                         {r.status !== "live" && (
                           <button
                             className="btn-ghost"

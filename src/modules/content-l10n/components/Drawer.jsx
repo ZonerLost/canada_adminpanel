@@ -14,11 +14,10 @@ export default function Drawer({
     <>
       <div className="fixed inset-0 z-40 bg-black/40" onClick={onClose} />
       <aside
-        className="fixed inset-y-0 right-0 z-50 bg-[var(--surface)] border-l flex flex-col"
-        style={{
-          width: wide ? "720px" : "520px",
-          borderColor: "var(--border)",
-        }}
+        className={`fixed z-50 flex flex-col inset-0 sm:inset-y-0 sm:right-0 ${
+          wide ? "sm:w-[720px]" : "sm:w-[520px]"
+        }`}
+        style={{ borderColor: "var(--border)", background: "var(--surface)" }}
       >
         <div
           className="px-4 py-3 border-b flex items-center justify-between"

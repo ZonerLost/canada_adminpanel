@@ -32,7 +32,7 @@ export default function LeftSidebar({
       )}
 
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-[var(--surface)] border-r transform transition-transform duration-200 ease-in-out
+        className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-(--surface) border-r transform transition-transform duration-200 ease-in-out
           ${
             open ? "translate-x-0" : "-translate-x-full"
           } lg:translate-x-0 flex flex-col`}

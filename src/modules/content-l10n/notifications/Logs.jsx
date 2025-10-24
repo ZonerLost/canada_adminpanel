@@ -66,15 +66,15 @@ export default function Logs() {
       </div>
 
       <div className="card overflow-hidden">
-        <div className="overflow-auto">
-          <table className="w-full text-sm min-w-[980px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-full">
             <thead className="text-left text-muted">
               <tr>
                 <th className="px-3 py-2">Time</th>
-                <th className="px-3 py-2">Template</th>
-                <th className="px-3 py-2">Channel</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Template</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Channel</th>
                 <th className="px-3 py-2">To</th>
-                <th className="px-3 py-2">Status</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -99,10 +99,16 @@ export default function Logs() {
                     <td className="px-3 py-2">
                       {new Date(r.ts).toLocaleString()}
                     </td>
-                    <td className="px-3 py-2">{r.template_key}</td>
-                    <td className="px-3 py-2 capitalize">{r.channel}</td>
+                    <td className="px-3 py-2 hidden sm:table-cell">
+                      {r.template_key}
+                    </td>
+                    <td className="px-3 py-2 hidden sm:table-cell capitalize">
+                      {r.channel}
+                    </td>
                     <td className="px-3 py-2">{r.to}</td>
-                    <td className="px-3 py-2 capitalize">{r.status}</td>
+                    <td className="px-3 py-2 hidden sm:table-cell capitalize">
+                      {r.status}
+                    </td>
                   </tr>
                 ))
               )}

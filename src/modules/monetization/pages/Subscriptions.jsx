@@ -87,16 +87,16 @@ export default function Subscriptions() {
       </div>
 
       <div className="card overflow-hidden">
-        <div className="overflow-auto">
-          <table className="w-full text-sm min-w-[1060px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-full">
             <thead className="text-left text-muted">
               <tr>
                 <th className="px-3 py-2">User</th>
-                <th className="px-3 py-2">Email</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Email</th>
                 <th className="px-3 py-2">Plan</th>
-                <th className="px-3 py-2">Status</th>
-                <th className="px-3 py-2">Started</th>
-                <th className="px-3 py-2">Period End</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Status</th>
+                <th className="px-3 py-2 hidden md:table-cell">Started</th>
+                <th className="px-3 py-2 hidden md:table-cell">Period End</th>
                 <th className="px-3 py-2 text-right">Actions</th>
               </tr>
             </thead>
@@ -121,17 +121,21 @@ export default function Subscriptions() {
                     style={{ borderColor: "var(--border)" }}
                   >
                     <td className="px-3 py-2">{r.user_name}</td>
-                    <td className="px-3 py-2">{r.user_email}</td>
+                    <td className="px-3 py-2 hidden sm:table-cell">
+                      {r.user_email}
+                    </td>
                     <td className="px-3 py-2">{planName(plans, r.plan_id)}</td>
-                    <td className="px-3 py-2 capitalize">{r.status}</td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 hidden sm:table-cell capitalize">
+                      {r.status}
+                    </td>
+                    <td className="px-3 py-2 hidden md:table-cell">
                       {new Date(r.started_at).toLocaleDateString()}
                     </td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 hidden md:table-cell">
                       {new Date(r.current_period_end).toLocaleDateString()}
                     </td>
                     <td className="px-3 py-2">
-                      <div className="flex items-center gap-1 justify-end">
+                      <div className="flex items-center gap-1 justify-end flex-wrap">
                         <button
                           className="btn-ghost"
                           onClick={() => setEditSub(r)}

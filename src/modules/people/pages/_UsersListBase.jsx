@@ -124,16 +124,16 @@ export default function UsersListBase({ role = "", title = "Users" }) {
       />
 
       <div className="card overflow-hidden">
-        <div className="overflow-auto">
-          <table className="w-full text-sm min-w-[960px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-full">
             <thead className="text-left text-muted">
               <tr>
                 <th className="px-3 py-2">Name</th>
-                <th className="px-3 py-2">Email</th>
-                <th className="px-3 py-2">Role</th>
-                <th className="px-3 py-2">Status</th>
-                <th className="px-3 py-2">Location</th>
-                <th className="px-3 py-2">Last Active</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Email</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Role</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Status</th>
+                <th className="px-3 py-2 hidden md:table-cell">Location</th>
+                <th className="px-3 py-2 hidden md:table-cell">Last Active</th>
                 <th className="px-3 py-2 text-right">Actions</th>
               </tr>
             </thead>
@@ -160,15 +160,23 @@ export default function UsersListBase({ role = "", title = "Users" }) {
                     <td className="px-3 py-2">
                       <div className="font-medium">{r.name}</div>
                     </td>
-                    <td className="px-3 py-2">{r.email}</td>
-                    <td className="px-3 py-2 capitalize">{r.role}</td>
-                    <td className="px-3 py-2 capitalize">{r.status}</td>
-                    <td className="px-3 py-2">{r.location || "—"}</td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 hidden sm:table-cell">
+                      {r.email}
+                    </td>
+                    <td className="px-3 py-2 hidden sm:table-cell capitalize">
+                      {r.role}
+                    </td>
+                    <td className="px-3 py-2 hidden sm:table-cell capitalize">
+                      {r.status}
+                    </td>
+                    <td className="px-3 py-2 hidden md:table-cell">
+                      {r.location || "—"}
+                    </td>
+                    <td className="px-3 py-2 hidden md:table-cell">
                       {new Date(r.last_active).toLocaleString()}
                     </td>
                     <td className="px-3 py-2">
-                      <div className="flex items-center gap-1 justify-end">
+                      <div className="flex items-center gap-1 justify-end flex-wrap">
                         {r.status === "pending" && (
                           <button
                             className="btn-ghost"

@@ -73,7 +73,7 @@ export default function Templates() {
             onChange={(e) => setQ(e.target.value)}
           />
           <select
-            className="input flex-shrink-0"
+            className="input shrink-0"
             value={channel}
             onChange={(e) => setChannel(e.target.value)}
           >
@@ -83,21 +83,21 @@ export default function Templates() {
             <option value="sms">SMS</option>
             <option value="inapp">In-app</option>
           </select>
-          <button className="btn flex-shrink-0" onClick={startNew}>
+          <button className="btn shrink-0" onClick={startNew}>
             New Template
           </button>
         </div>
       </div>
 
       <div className="card overflow-hidden">
-        <div className="overflow-auto">
-          <table className="w-full text-sm min-w-[980px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-full">
             <thead className="text-left text-muted">
               <tr>
                 <th className="px-3 py-2">Key</th>
-                <th className="px-3 py-2">Channel</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Channel</th>
                 <th className="px-3 py-2">Subject/Title</th>
-                <th className="px-3 py-2">Updated</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Updated</th>
                 <th className="px-3 py-2 text-right">Actions</th>
               </tr>
             </thead>
@@ -121,13 +121,15 @@ export default function Templates() {
                     style={{ borderColor: "var(--border)" }}
                   >
                     <td className="px-3 py-2 font-mono">{r.key}</td>
-                    <td className="px-3 py-2 capitalize">{r.channel}</td>
+                    <td className="px-3 py-2 hidden sm:table-cell capitalize">
+                      {r.channel}
+                    </td>
                     <td className="px-3 py-2">{r.subject || "—"}</td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 hidden sm:table-cell">
                       {new Date(r.updated_at).toLocaleString()}
                     </td>
                     <td className="px-3 py-2">
-                      <div className="flex justify-end gap-1">
+                      <div className="flex justify-end gap-1 flex-wrap">
                         <button
                           className="btn-ghost"
                           onClick={() => startEdit(r)}

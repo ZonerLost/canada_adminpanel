@@ -120,14 +120,14 @@ export default function Tutorials() {
       </div>
 
       <div className="card overflow-hidden">
-        <div className="overflow-auto">
-          <table className="w-full text-sm min-w-[920px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-full">
             <thead className="text-left text-muted">
               <tr>
                 <th className="px-3 py-2">Locale</th>
                 <th className="px-3 py-2">Title</th>
-                <th className="px-3 py-2">Steps</th>
-                <th className="px-3 py-2">Updated</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Steps</th>
+                <th className="px-3 py-2 hidden md:table-cell">Updated</th>
                 <th className="px-3 py-2 text-right">Actions</th>
               </tr>
             </thead>
@@ -152,14 +152,14 @@ export default function Tutorials() {
                   >
                     <td className="px-3 py-2">{r.locale.toUpperCase()}</td>
                     <td className="px-3 py-2">{r.title}</td>
-                    <td className="px-3 py-2 text-muted">
+                    <td className="px-3 py-2 hidden sm:table-cell text-muted">
                       {(r.steps || []).length} step(s)
                     </td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 hidden md:table-cell">
                       {new Date(r.updated_at).toLocaleString()}
                     </td>
                     <td className="px-3 py-2">
-                      <div className="flex justify-end gap-1">
+                      <div className="flex justify-end gap-1 flex-wrap">
                         <button
                           className="btn-ghost"
                           onClick={() => startEdit(r)}

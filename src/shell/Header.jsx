@@ -126,8 +126,9 @@ export default function Header({
             {openNotif && (
               <div
                 role="menu"
-                className="absolute right-0 mt-2 w-80 bg-[var(--surface)] border rounded-xl overflow-hidden"
+                className="z-50 fixed md:absolute inset-x-3 top-16 bottom-3 md:top-auto md:bottom-auto md:right-0 md:inset-auto md:mt-2 md:w-80 rounded-xl overflow-hidden"
                 style={{
+                  background: "var(--surface)",
                   borderColor: "var(--border)",
                   boxShadow: "0 8px 24px rgba(0,0,0,.12)",
                 }}
@@ -202,8 +203,11 @@ export default function Header({
       {mobileSearch && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-start p-4 md:hidden">
           <div
-            className="w-full bg-[var(--surface)] p-3 rounded-lg"
-            style={{ border: "1px solid var(--border)" }}
+            className="w-full p-3 rounded-lg"
+            style={{
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+            }}
           >
             <form
               onSubmit={(e) => {

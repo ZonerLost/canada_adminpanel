@@ -255,3 +255,14 @@ table .btn:hover, table .btn-ghost:hover {
   animation: none !important;
   box-shadow: none !important;
 }
+
+/* Login animations and hero styles */
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(12px) scale(.995); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.login-card { animation: fadeUp .52s cubic-bezier(.2,.9,.23,1) both; }
+.login-illustration { animation: fadeUp .6s cubic-bezier(.2,.9,.23,1) .08s both; }
+.bg-hero-gradient {
+  background: linear-gradient(180deg, rgba(6,12,34,0.04), transparent 40%), radial-gradient(800px 400px at 10% 20%, rgba(96,165,250,0.06), transparent 10%), var(--bg);
+}

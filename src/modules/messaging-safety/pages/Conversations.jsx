@@ -50,15 +50,15 @@ export default function Conversations() {
       </div>
 
       <div className="card overflow-hidden">
-        <div className="overflow-auto">
-          <table className="w-full text-sm min-w-[920px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-full">
             <thead className="text-left text-muted">
               <tr>
                 <th className="px-3 py-2">Subject</th>
-                <th className="px-3 py-2">User A</th>
-                <th className="px-3 py-2">User B</th>
-                <th className="px-3 py-2">Unread</th>
-                <th className="px-3 py-2">Updated</th>
+                <th className="px-3 py-2 hidden sm:table-cell">User A</th>
+                <th className="px-3 py-2 hidden md:table-cell">User B</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Unread</th>
+                <th className="px-3 py-2 hidden md:table-cell">Updated</th>
                 <th className="px-3 py-2 text-right">Actions</th>
               </tr>
             </thead>
@@ -83,14 +83,20 @@ export default function Conversations() {
                     style={{ borderColor: "var(--border)" }}
                   >
                     <td className="px-3 py-2">{r.subject}</td>
-                    <td className="px-3 py-2">{r.a_user}</td>
-                    <td className="px-3 py-2">{r.b_user}</td>
-                    <td className="px-3 py-2">{r.unread_for_admin || 0}</td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 hidden sm:table-cell">
+                      {r.a_user}
+                    </td>
+                    <td className="px-3 py-2 hidden md:table-cell">
+                      {r.b_user}
+                    </td>
+                    <td className="px-3 py-2 hidden sm:table-cell">
+                      {r.unread_for_admin || 0}
+                    </td>
+                    <td className="px-3 py-2 hidden md:table-cell">
                       {new Date(r.updated_at).toLocaleString()}
                     </td>
                     <td className="px-3 py-2">
-                      <div className="flex justify-end">
+                      <div className="flex justify-end flex-wrap">
                         <button
                           className="btn-ghost"
                           onClick={() => setPeek(r.id)}

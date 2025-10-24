@@ -118,14 +118,19 @@ export default function Strings() {
       </div>
 
       <div className="card overflow-hidden">
-        <div className="table-responsive">
-          <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-full">
             <thead className="text-left text-muted">
               <tr>
                 <th className="px-3 py-2">Namespace</th>
                 <th className="px-3 py-2">Key</th>
-                {locs.map((l) => (
-                  <th key={l} className="px-3 py-2">
+                {locs.map((l, i) => (
+                  <th
+                    key={l}
+                    className={`px-3 py-2 ${
+                      i > 1 ? "hidden sm:table-cell" : ""
+                    }`}
+                  >
                     {l.toUpperCase()}
                   </th>
                 ))}
@@ -157,13 +162,18 @@ export default function Strings() {
                   >
                     <td className="px-3 py-2">{r.ns}</td>
                     <td className="px-3 py-2 font-mono">{r.key}</td>
-                    {locs.map((l) => (
-                      <td key={l} className="px-3 py-2">
+                    {locs.map((l, i) => (
+                      <td
+                        key={l}
+                        className={`px-3 py-2 ${
+                          i > 1 ? "hidden sm:table-cell" : ""
+                        }`}
+                      >
                         {r.values?.[l] || <span className="text-muted">—</span>}
                       </td>
                     ))}
                     <td className="px-3 py-2">
-                      <div className="flex justify-end gap-1">
+                      <div className="flex justify-end gap-1 flex-wrap">
                         <button
                           className="btn-ghost"
                           onClick={() => startEdit(r)}

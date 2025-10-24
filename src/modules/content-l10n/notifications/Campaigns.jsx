@@ -64,15 +64,25 @@ export default function Campaigns() {
   }
   async function onCancel(id) {
     setBusy(true);
-    await cancelCampaign(id);
-    setBusy(false);
-    await load();
+    try {
+      await cancelCampaign(id);
+      await load();
+    } catch (err) {
+      console.error("Failed to cancel campaign", err);
+    } finally {
+      setBusy(false);
+    }
   }
   async function onSendNow(id) {
     setBusy(true);
-    await sendNow(id);
-    setBusy(false);
-    await load();
+    try {
+      await sendNow(id);
+      await load();
+    } catch (err) {
+      console.error("Failed to send campaign now", err);
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
@@ -107,15 +117,15 @@ export default function Campaigns() {
       </div>
 
       <div className="card overflow-hidden">
-        <div className="overflow-auto">
-          <table className="w-full text-sm min-w-[980px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-full">
             <thead className="text-left text-muted">
               <tr>
                 <th className="px-3 py-2">Name</th>
-                <th className="px-3 py-2">Template</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Template</th>
                 <th className="px-3 py-2">Audience</th>
-                <th className="px-3 py-2">Schedule</th>
-                <th className="px-3 py-2">Status</th>
+                <th className="px-3 py-2 hidden md:table-cell">Schedule</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Status</th>
                 <th className="px-3 py-2 text-right">Actions</th>
               </tr>
             </thead>
@@ -139,16 +149,20 @@ export default function Campaigns() {
                     style={{ borderColor: "var(--border)" }}
                   >
                     <td className="px-3 py-2">{r.name}</td>
-                    <td className="px-3 py-2">{r.template_id}</td>
+                    <td className="px-3 py-2 hidden sm:table-cell">
+                      {r.template_id}
+                    </td>
                     <td className="px-3 py-2">{r.audience}</td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 hidden md:table-cell">
                       {r.scheduled_at
                         ? new Date(r.scheduled_at).toLocaleString()
                         : "—"}
                     </td>
-                    <td className="px-3 py-2 capitalize">{r.status}</td>
+                    <td className="px-3 py-2 hidden sm:table-cell capitalize">
+                      {r.status}
+                    </td>
                     <td className="px-3 py-2">
-                      <div className="flex justify-end gap-1">
+                      <div className="flex justify-end gap-1 flex-wrap">
                         {r.status === "draft" && (
                           <button
                             className="btn-ghost"

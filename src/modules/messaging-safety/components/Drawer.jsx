@@ -12,11 +12,12 @@ export default function Drawer({
 
   return (
     <>
-      <div className="fixed inset-0 z-50 bg-black/40" onClick={onClose} />
+      <div className="fixed inset-0 z-40 bg-black/40" onClick={onClose} />
       <div
-        className="fixed inset-y-0 right-0 z-50 flex flex-col"
+        className={`fixed z-50 flex flex-col inset-0 sm:inset-y-0 sm:right-0 ${
+          wide ? "sm:w-[720px]" : "sm:w-[520px]"
+        }`}
         style={{
-          width: wide ? "720px" : "520px",
           borderColor: "var(--border)",
           backgroundColor: "var(--surface)",
         }}

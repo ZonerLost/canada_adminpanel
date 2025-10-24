@@ -123,15 +123,15 @@ export default function Pages() {
       </div>
 
       <div className="card overflow-hidden">
-        <div className="overflow-auto">
-          <table className="w-full text-sm min-w-[960px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-full">
             <thead className="text-left text-muted">
               <tr>
                 <th className="px-3 py-2">Locale</th>
                 <th className="px-3 py-2">Title</th>
-                <th className="px-3 py-2">Slug</th>
-                <th className="px-3 py-2">Status</th>
-                <th className="px-3 py-2">Updated</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Slug</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Status</th>
+                <th className="px-3 py-2 hidden md:table-cell">Updated</th>
                 <th className="px-3 py-2 text-right">Actions</th>
               </tr>
             </thead>
@@ -156,13 +156,17 @@ export default function Pages() {
                   >
                     <td className="px-3 py-2">{r.locale.toUpperCase()}</td>
                     <td className="px-3 py-2">{r.title}</td>
-                    <td className="px-3 py-2 font-mono">/{r.slug}</td>
-                    <td className="px-3 py-2 capitalize">{r.status}</td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 hidden sm:table-cell font-mono">
+                      /{r.slug}
+                    </td>
+                    <td className="px-3 py-2 hidden sm:table-cell capitalize">
+                      {r.status}
+                    </td>
+                    <td className="px-3 py-2 hidden md:table-cell">
                       {new Date(r.updated_at).toLocaleString()}
                     </td>
                     <td className="px-3 py-2">
-                      <div className="flex justify-end gap-1">
+                      <div className="flex justify-end gap-1 flex-wrap">
                         <button
                           className="btn-ghost"
                           onClick={() => startEdit(r)}

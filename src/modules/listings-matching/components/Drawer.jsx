@@ -19,11 +19,10 @@ export default function Drawer({
       />
 
       <aside
-        className="fixed inset-y-0 right-0 z-50 bg-[var(--surface)] border-l flex flex-col transform transition-transform duration-300"
-        style={{
-          width: wide ? "680px" : "520px",
-          borderColor: "var(--border)",
-        }}
+        className={`fixed z-50 flex flex-col inset-0 sm:inset-y-0 sm:right-0 ${
+          wide ? "sm:w-[680px]" : "sm:w-[520px]"
+        } transform transition-transform duration-300`}
+        style={{ borderColor: "var(--border)", background: "var(--surface)" }}
       >
         <div
           className="px-4 py-3 border-b flex items-center justify-between"

@@ -60,16 +60,16 @@ export default function ReportsQueue() {
       </div>
 
       <div className="card overflow-hidden">
-        <div className="overflow-auto">
-          <table className="w-full text-sm min-w-[980px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-full">
             <thead className="text-left text-muted">
               <tr>
                 <th className="px-3 py-2">Type</th>
-                <th className="px-3 py-2">Status</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Status</th>
                 <th className="px-3 py-2">Reported by</th>
-                <th className="px-3 py-2">Target user</th>
-                <th className="px-3 py-2">Conversation</th>
-                <th className="px-3 py-2">Created</th>
+                <th className="px-3 py-2 hidden md:table-cell">Target user</th>
+                <th className="px-3 py-2 hidden md:table-cell">Conversation</th>
+                <th className="px-3 py-2 hidden sm:table-cell">Created</th>
                 <th className="px-3 py-2 text-right">Actions</th>
               </tr>
             </thead>
@@ -94,15 +94,21 @@ export default function ReportsQueue() {
                     style={{ borderColor: "var(--border)" }}
                   >
                     <td className="px-3 py-2 capitalize">{r.type}</td>
-                    <td className="px-3 py-2 capitalize">{r.status}</td>
+                    <td className="px-3 py-2 hidden sm:table-cell capitalize">
+                      {r.status}
+                    </td>
                     <td className="px-3 py-2">{r.reported_by}</td>
-                    <td className="px-3 py-2">{r.target_user}</td>
-                    <td className="px-3 py-2">#{r.conversation_id}</td>
-                    <td className="px-3 py-2">
+                    <td className="px-3 py-2 hidden md:table-cell">
+                      {r.target_user}
+                    </td>
+                    <td className="px-3 py-2 hidden md:table-cell">
+                      #{r.conversation_id}
+                    </td>
+                    <td className="px-3 py-2 hidden sm:table-cell">
                       {new Date(r.created_at).toLocaleString()}
                     </td>
                     <td className="px-3 py-2">
-                      <div className="flex justify-end">
+                      <div className="flex justify-end flex-wrap">
                         <button
                           className="btn-ghost"
                           onClick={() => setOpen(r.id)}
